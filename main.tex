@@ -806,7 +806,7 @@ For each of the hypotheses, the null space contains parameter points with at lea
 
 One approach for finding test statistic is using the likelihood-ratio test,
 \begin{equation} \label{eq:lrt}
-	\Lambda = \frac{\sup_{\theta \in \Theta}{\likelihood{\theta}{X}}}{\sup_{\theta \in \Theta_{00}}{\likelihood{\theta}{X}}} \fullstop
+	\Lambda = \frac{\sup_{\theta \in \Theta_{00}}{\likelihood{\theta}{X}}}{\sup_{\theta \in \Theta}{\likelihood{\theta}{X}}} \fullstop
 \end{equation}
 Direct calculation shows that the likelihood-ratio test statistic is \(\left\|\left(  \estim{1}, \estim{2} \right) \right\|^2 \), so it can be considered as a natural test statistic \(T_\filter\) for the filtration test.
 
