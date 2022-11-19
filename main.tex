@@ -832,9 +832,9 @@ In order to draw useful insights about these estimators as well as others, we ne
 
 \subsection{Convergence Rates} \label{sec:rates-general} \label{sec:rates-framework}
 
-Let \(\regcoef{1} = \regcoef{1}[A]\) and \(\regcoef{2} = \regcoef{2}[M]\) be the coefficients from the regression equation \eqref{eq:medregmodel}, and let \(\gamma,\beta\) their respective estimators. %Our goal is to test the null hypothesis $\regcoef{1} \regcoef{2} = 0$. This null hypothesis corresponds to the non-existence of a mediator, and can be divided into the three cases in \eqref{eq:threecases}.
+Let \(\regcoef{1} = \regcoef{1}[A]\) and \(\regcoef{2} = \regcoef{2}[M]\) be the coefficients from the regression equation \eqref{eq:medregmodel}, and let \(\estim{1}\) and \(\estim{2}\) their respective estimators. %Our goal is to test the null hypothesis $\regcoef{1} \regcoef{2} = 0$. This null hypothesis corresponds to the non-existence of a mediator, and can be divided into the three cases in \eqref{eq:threecases}.
 %As mentioned before, since the quantity we are interested in, as derived from the regression equations of the mediation hypothesis is \(\regcoef{1} \regcoef{2}\), a natural test statistic for the problem would be \(\product\).
-Under standard regularity conditions, \(\sqrt{n}\left( \mle{\regcoef{1}} - \regcoef{1}\right) \to \nordist[0][\sigma^2_{\regcoef{1}}] \) and \(\sqrt{n}\left( \mle{\regcoef{2}} - \regcoef{2}\right) \to \nordist[0][\sigma^2_{\regcoef{2}}] \). In this section we will analyze the estimators \(\estim{1}\) and \(\estim{2}\) based on their normal approximation \(\regcoef{1}\) and \(\regcoef{2}\) \citep[see also discussion in][]{huang_genome-wide_2019}.
+Under standard regularity conditions, \(\sqrt{n}\left( \mle{\regcoef{1}} - \regcoef{1}\right) \to \nordist[0][\sigma^2_{\regcoef{1}}] \) and \(\sqrt{n}\left( \mle{\regcoef{2}} - \regcoef{2}\right) \to \nordist[0][\sigma^2_{\regcoef{2}}] \). In this section we will analyze the estimators \(\estim{1}\) and \(\estim{2}\) based on their normal approximations \citep[see also discussion in][]{huang_genome-wide_2019}.
 As we show below, the estimator \(\product\), similarly to the original estimator \(\mle{\gamma} \mle{\beta}\), behaves differently in the parameter point \(\left(0,0 \right) \) compared to the other parameter points in the null.
 
 
