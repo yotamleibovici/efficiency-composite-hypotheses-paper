@@ -219,7 +219,7 @@
 	
 	\newcommand{\regerror}[1]{\varepsilon^{ \ifnum #1=1 M \else Y \fi}}
 	
-	\newcommand{\estim}[1]{\avg{\regcoef{#1}}}
+	\newcommand{\estim}[1]{\widehat{\regcoef{#1}}}
 	\NewDocumentCommand{\maxestim}{}{
 		\max \left\lbrace
 		\left| \estim{1} \right|,
@@ -274,7 +274,7 @@
 		{\basestat[#1][#2]}^{\left( \filtstat[#1] \right) }
 	}
 	\NewDocumentCommand{\shrinkestimdef}{O{} O{}}{
-		\left(\basestat[#1][#2]-\psi\left(\medparamzero \right)  \right) \indc{\nfilevent} + \psi\left(\medparamzero \right)
+		\left(\basestat[#1][#2]-\psi\left(\medparamzero \right)  \right) \indc{\nfilevent[][n]} + \psi\left(\medparamzero \right)
 	}
 	
 	
@@ -740,7 +740,7 @@ In Algorithm \ref{alg:filtration}, fix a specific hypothesis of index \(i\), and
 \begin{equation} \label{eq:filtestimator}
 	\shrinkestim = \left(T - \psi\left(\theta_0\right)\right) \indc{\nfilevent} + \psi\left( \theta_0\right) \fullstop
 \end{equation}
-The estimator \eqref{eq:filtestimator} encodes inside itself the two-stage process of Algorithm~\ref{alg:filtration}. Indeed, if the filtration test was not rejected (i.e., a filtration event occurred), the estimator's value becomes \(\psi\left(\theta_0 \right) \) for \(\theta_0 \in \Theta_0\), and when the filtration test was rejected, \eqref{eq:filtestimator} remains the same as the original \(\basestat\). Thus, \(\shrinkestim\) can be used as a test statistic to the test with an adjusted rejection region \(\baserradj\). Note that the obtained estimator is a so-called \emph{shrinkage estimator}. As an example, consider the base-test statistic \(T = \product\) and the filtration test \(\filevent\) as \(\left| \product \right| < cn^{-\delta} \), for a constant \(\delta > 0 \). The estimator obtained is \(\product \,\indc{\left| \product \right| > cn^{-\delta} }\).
+The estimator \eqref{eq:filtestimator} encodes inside itself the two-stage process of Algorithm~\ref{alg:filtration}. Indeed, if the filtration test was not rejected (i.e., a filtration event occurred), the estimator's value becomes \(\psi\left(\theta_0 \right) \) for \(\theta_0 \in \Theta_0\), and when the filtration test was rejected, \eqref{eq:filtestimator} remains the same as the original \(\basestat\). Thus, \(\shrinkestim\) can be used as a test statistic to the test with an adjusted rejection region \(\baserradj\). Note that the obtained estimator is a so-called \emph{shrinkage estimator}. As an example, assume \(\estim{1}\) and \(\estim{2}\) are maximum likelihood estimators for \(\regcoef{1}\) and \(\regcoef{2}\), fit for Models in \eqref{eq:medregmodel}. Now, consider the base-test statistic \(T = \product\),  and the filtration test \(\filevent\) as \(\left| \product \right| < cn^{-\delta} \), for a constant \(\delta > 0 \). The estimator obtained is \(\product \,\indc{\left| \product \right| > cn^{-\delta} }\).
 
 %	\begin{MyColorPar}{gray}
 %	
@@ -834,7 +834,7 @@ In order to draw useful insights about these estimators as well as others, we ne
 
 Let \(\regcoef{1} = \regcoef{1}[A]\) and \(\regcoef{2} = \regcoef{2}[M]\) be the coefficients from the regression equation \eqref{eq:medregmodel}, and let \(\gamma,\beta\) their respective estimators. %Our goal is to test the null hypothesis $\regcoef{1} \regcoef{2} = 0$. This null hypothesis corresponds to the non-existence of a mediator, and can be divided into the three cases in \eqref{eq:threecases}.
 %As mentioned before, since the quantity we are interested in, as derived from the regression equations of the mediation hypothesis is \(\regcoef{1} \regcoef{2}\), a natural test statistic for the problem would be \(\product\).
-Under standard regularity conditions, \(\sqrt{n}\left( \mle{\regcoef{1}} - \regcoef{1}\right) \to \nordist[0][\sigma^2_{\regcoef{1}}] \) and \(\sqrt{n}\left( \mle{\regcoef{2}} - \regcoef{2}\right) \to \nordist[0][\sigma^2_{\regcoef{2}}] \). Thus, \(\mle{\regcoef{1}} = \avg{\regcoef{1}} + \probasymleq{1}\), \(\estim{1} \sim \nordist[\regcoef{1}][\frac{1}{n} \sigma^2_{\regcoef{1}}]\) and \(\mle{\regcoef{2}}  = \avg{\regcoef{2}} + \probasymleq{1}\), \(\estim{2} \sim \nordist[\regcoef{2}][\frac{1}{n} \sigma^2_{\regcoef{2}}]\), where \(\avg{\regcoef{1}}\) and \(\avg{\regcoef{2}}\) can be thought of as sample means approximations. In this section we will analyze the estimators \(\estim{1}\) and \(\estim{2}\) based on their normal approximation \(\regcoef{1}\) and \(\regcoef{2}\) \citep[see also discussion in][]{huang_genome-wide_2019}.
+Under standard regularity conditions, \(\sqrt{n}\left( \mle{\regcoef{1}} - \regcoef{1}\right) \to \nordist[0][\sigma^2_{\regcoef{1}}] \) and \(\sqrt{n}\left( \mle{\regcoef{2}} - \regcoef{2}\right) \to \nordist[0][\sigma^2_{\regcoef{2}}] \). In this section we will analyze the estimators \(\estim{1}\) and \(\estim{2}\) based on their normal approximation \(\regcoef{1}\) and \(\regcoef{2}\) \citep[see also discussion in][]{huang_genome-wide_2019}.
 As we show below, the estimator \(\product\), similarly to the original estimator \(\mle{\gamma} \mle{\beta}\), behaves differently in the parameter point \(\left(0,0 \right) \) compared to the other parameter points in the null.
 
 
@@ -998,7 +998,7 @@ Filtration estimators, in general, have properties similar to the Hodges' estima
 	
 	
 	\begin{theorem} \label{thm:effclass}
-		Let \(\basestat[][n]\) be the regular estimator, and \(\shrinkestim[][n] = \shrinkestimdef[][n] \) be the filtration estimator based on it.
+		Let \(\theta_n\) be any sequence of parameter points that converges to \(\theta_0\). Let \(\basestat[][n]\) be the regular estimator of the corresponding parameter \(\psi\left(\theta_n\right)\), and \(\shrinkestim[][n] = \shrinkestimdef[][n] \) be the filtration estimator based on it.
 		Let \(L = \lim P_{\theta_n} \left( \filevent[][n] \right) \) and \(K = \lim \frac{1}{\sigma_{T_n}} \left( \psi\left(\theta_n\right) - \psi\left(\theta_0\right) \right)\). %(or, equivalently, \(\lim P\left( T_n \in R_n\right) \)).
 		\begin{enumerate}[label = \roman*.]
 			\item When \(L = 1\), then \(\shrinkestim[][n]\) is much more efficient than \(\estimreg\) when \(K = 0\); more efficient when \(0 < K < 1\); equivalent when \(K = 1\); less efficient when \(1<K<\infty\); and much less efficient when \(K = \infty\).
