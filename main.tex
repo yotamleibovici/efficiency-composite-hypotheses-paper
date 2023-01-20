@@ -1144,7 +1144,7 @@ For set of \(m\) hypotheses, we denote by \(f \in \left\lbrace 0, 1 \right\rbrac
 
 
 \begin{theorem} \label{thm:fwercontrol}
-	Assume that all \(m\) mediation hypotheses are independent.
+	Assume that the base test and filtration test statistics of every hypothesis are independent of the base test and filtration test statistics of all other hypotheses (\(\left(T^i, S^i\right)\) and \(\left(T^j, S^j\right)\) are independent for every \(i \neq j\)). 
 	Assume that \(\theta_0 = \arg\min_{\theta}{P_\theta\left(\nfilevent \right) }\) (the parameter point with the lowest filtration probability is \(\theta_0\)). Assume also we use an adaptive adjusting method (after filtration step, and after computing \(F\), number of unfiltered hypotheses), such that under the null \(P_{\theta}\left(\cond{\baserejeventadj}{F} \right) = \frac{P_{\theta_0}\left( \nfilevent \right)}{F} \alpha \). For the special case that \(T\) is a p-value, it can be achieved for example by multiplying the rejection threshold by \(\frac{P_{\theta_0}\left( \nfilevent \right)}{F}\) (similarly to Bonferroni). Let \(V\) be the number of true null rejected. Then
 	\(P\left(V \geq 1 \right) \leq \alpha \).
 \end{theorem}
@@ -1152,7 +1152,7 @@ For set of \(m\) hypotheses, we denote by \(f \in \left\lbrace 0, 1 \right\rbrac
 The following result generalizes the FWER bound given by Proposition~1 of \citet{djordjilovic_optimal_2020} for the two-stage screen-min procedure, in which \citet{djordjilovic_optimal_2020} assumed discrete separation of the null into cases (Denoted here as Cases \nullcase{00}, \nullcase{01} and \nullcase{10}).
 
 \begin{theorem} \label{thm:fwerbound}
-	Assume that all \(m\) mediation hypotheses are independent.
+	Assume that the base test and filtration test statistics of every hypothesis are independent of the base test and filtration test statistics of all other hypotheses (\(\left(T^i, S^i\right)\) and \(\left(T^j, S^j\right)\) are independent for every \(i \neq j\)). 
 	Assume we use an adaptive adjusting method (after filtration step, and after computing \(F\), number of unfiltered hypotheses), such that under the null \(P_{\theta}\left(\baserejeventadj \right) = \alpha/F \). For the special case that \(T\) is a p-value, it can be achieved for example by multiplying the rejection threshold by \(1/F\) (similarly to Bonferroni). Let \(V\) be the number of true null rejected. Then
 	\[P\left(V \geq 1 \right) \leq \mean{\left(1 - \left( 1 - \max_{\theta\in\Theta }P_\theta \left(\cond{T^i \in R^i}{S^i \in Q^i}\right) \right)^{F}  \right)\indc{F>0} } \fullstop \]
 \end{theorem}
