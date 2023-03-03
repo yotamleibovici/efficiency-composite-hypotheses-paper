@@ -85,8 +85,11 @@
 	\usetikzlibrary{arrows}
 	\usetikzlibrary{backgrounds}
 	
-	
-	
+	\usepackage{pgfplots}
+    \pgfplotsset{width=10cm,compat=1.9}
+    \usepgfplotslibrary{external}
+    \tikzexternalize
+
 	
 	\usepackage{graphicx}
 	\graphicspath{ {figures/} }
@@ -139,7 +142,7 @@
 	\newcommand{\ttest}{\(t\)-test}
 	\newcommand{\ztest}{\(z\)-test}
 	\newcommand{\textrootn}{root-\(n\)}
-	\newcommand{\iid}{i.i.d.}
+	\newcommand{\iid}{i.i.d.\ }
 	
 	% symobls
 	\newcommand{\naturalnum}{\mathbb{N}}
@@ -465,7 +468,7 @@
 % TODO shorter abstract
 \begin{abstract}
 The goal of mediation analysis is to study the effect of exposure on an outcome interceded by a mediator. Two simple hypotheses are tested: the effect of the exposure on the mediator, and the effect of the mediator on the outcome. 
-When either of these hypotheses is true, a predetermined significance level can be assured. When both nulls are true, the same test becomes conservative. Adaptively finding the correct scenario enables customizing the tests and consequently enlarges their efficiency, which is most important in a multiple testing framework.  In this work, we link between adaptive two-stage procedures and shrinkage estimators. We first study the properties of shrinkage estimators, and characterize their behavior at different parameter points using local asymptotics. We formulate theoretical results regarding shrinkage estimators, compared to regular estimators. We then discuss the multiple-testing framework and state results about using shrinkage estimator in  two-stage procedures for controlling the FWER. Taking advantage of these theoretical results, we suggest a number of estimators and test statistics for the two-stage mediation procedures. We then investigate their empirical FWER and power, compared to regular estimators and tests, through simulations. \end{abstract}
+When either of these hypotheses is true, a predetermined significance level can be assured. When both nulls are true, the same test becomes conservative. Adaptively finding the correct scenario enables customizing the tests and consequently enlarges their efficiency, which is most important in a multiple testing framework.  In this work, we link between adaptive two-stage procedures and shrinkage estimators. We first study the properties of shrinkage estimators, and characterize their behavior at different parameter points using local asymptotics. We formulate theoretical results regarding shrinkage estimators, compared to regular estimators. We then discuss the multiple-testing framework and state results about using shrinkage estimator in  two-stage procedures for controlling the FWER. Taking advantage of these theoretical results, we analyze a number of existing and novel estimators and test statistics for the two-stage mediation procedures. We then investigate their empirical FWER and power, compared to regular estimators and tests, through simulations. \end{abstract}
 
 
  \begin{keyword}[class=MSC]
@@ -503,14 +506,13 @@ When either of these hypotheses is true, a predetermined significance level can 
 
 Mediation analysis, a research area within the field of causal inference, is a collection of methods employed for studying the causal effect of an exposure on an outcome, interceded by a mediator.
 %Mediation can be utilized in investigating a variety of situations. For instance, in epidemiology, one of which is obesity.
-
 For instance, obesity has already been found to be correlated to poor socioeconomic level in childhood \citep{senese_associations_2009}, as well as to changes in DNA methylation process \citep{borghol_associations_2012, agha_adiposity_2015}. \citet{huang_genome-wide_2019} hypothesized that socioeconomic disadvantages in childhood alter DNA methylation, which in turn affects obesity in adulthood, and used mediation methods for testing this hypothesis. This is a typical example of the mediation process: the hypothesis tested whether the outcome (obesity) is affected by the exposure (socioeconomic level) through a mediator (DNA methylation).
 
 %Previous works \citep{barfield_testing_2017,huang_genome-wide_2019} indicate that standard methods for testing hypotheses related to mediation work well under some assumptions, but tend to lose efficiency in some sense under others. As we explain below, situations in which testing hypotheses related to mediation are inefficient become more and more relevant. In the following, we propose an approach to improve efficiency in these situations.
 
 %\subsection{Power Loss} \label{sec:power-loss}
 
-In mediation analysis, two hypotheses are tested: the effect of the exposure on the mediator, and the effect of the mediator on the outcome. Finding both of them as true is accepting the hypothesis that the influence of the exposure on the outcome is mediated, and that the mediator is essential for understanding the connection between them. Hence, we are interested in a composite hypothesis which contains both of the preceding hypotheses. Some statistical literature refers to this setting of composite hypotheses, as the \emph{intersection-union test} \citep{berger_bioequivalence_1996, liu_uniformly_1995, berger_multiparameter_1982%%,doi_introduction_1997,brunner_intersection-union_2004
+In mediation analysis, two hypotheses are tested: the effect of the exposure on the mediator, and the effect of the mediator on the outcome. Finding both of them as true is accepting the hypothesis that the influence of the exposure on the outcome is mediated, and that the mediator is essential for understanding the connection between them. Hence, we are interested in a composite hypothesis which contains both of the preceding hypotheses. Some statistical literature refers to this setting of composite hypotheses as the \emph{intersection-union test} \citep{berger_bioequivalence_1996, liu_uniformly_1995, berger_multiparameter_1982%%,doi_introduction_1997,brunner_intersection-union_2004
 }.% but in the case presented here, not all issues have been resolved. %therefore call for further consideration and analysis.
 
 The null hypothesis of mediation can be divided into three cases: The first is when the mediator is not significantly influenced by the exposure but significantly influence the outcome;
@@ -539,7 +541,9 @@ This in fact means that the null is retained for all parameter points which are 
 
 The canonical expample of shrinkage estimator is the well-known Hodges' estimator \citep{le_cam_asymptotic_1953}. For a location parameter model (e.g., normal distribution with unknown mean), Hodges' estimator aims to identify more efficiently whether the true parameter point is \(0\) or not. Asymptotically, the variance of the Hodges' estimator is lower than the Cram\'er-Rao bound at \(0\), which was considered to be the optimal that can be achieved. Such estimators are called \emph{super-efficient}. \citet{le_cam_asymptotic_1953} then showed that the Hodges' estimator has various undesirable properties in a neighborhood of the parameter where the super-efficiency was obtained.
 
-In this work we study the properties of shrinkage estimators, and characterize their behavior in different parameter points. We formulate theoretical results about filtration estimators, compared to regular estimators, in different scenarios of convergence rates and filtration probabilities, under some regularity conditions. We return to the multiple-testing framework in order to state results about the two-stage tests and controlling the FWER. We suggest a number of estimators and test statistics for the two-stage mediation procedures. We then investigate their empirical FWER and power, compared to regular estimators and tests, through simulations.
+In this work we study the properties of shrinkage estimators, and characterize their behavior in different parameter points. We formulate theoretical results about filtration estimators, compared to regular estimators, in different scenarios of convergence rates and filtration probabilities, under some regularity conditions. We return to the multiple-testing framework in order to state results about the two-stage tests and controlling the FWER.
+We then analyze a number of existing and novel estimators and test statistics for the two-stage mediation
+procedures. Finally, we investigate their empirical FWER and power, compared to regular estimators and tests, through simulations.
 
 This work is organized as follows. In Section~\ref{sec:med}, we describe the mediation test setting and discuss the power loss challenge. In Section~\ref{sec:filt}, the filtration tests framework is formulated, and linked to shrinkage estimators. In Section~\ref{sec:rates}, we define efficiency in this setting and investigate convergence rates of estimators depending on the convergence of the parameter points. In Section~\ref{sec:la}, we present theoretical results about these estimators and the two-stage testing procedure. In Section~\ref{appmc}, we perform simulation study of the two-stage procedure on the multiple-testing framework with various estimators. Proofs that were omitted from the main paper are provided in the Appendix.
 
@@ -735,8 +739,7 @@ A filtration procedure is a two-stage process, which might have the form detaile
 \end{algorithm}
 
 \subsection{Shrinkage Estimators} \label{sec:filt-shrinkage}
-
-In Algorithm \ref{alg:filtration}, fix a specific hypothesis of index \(i\), and omit the index for convenience. Consider a base test statistic \(\basestat\) which is an estimator for \(\psi\left(\theta \right) \), and a filtration test statistic \(\filtstat\) with rejection region \(\filtrr\), which, depending on filtering or un-filtering event, indicates the distance from the true parameter \(\psi\left(\theta \right) \) to the predefined point \(\psi\left(\theta_0 \right) \) (in the mediation hypothesis, \(\theta_0 = \left(0,0 \right) \)). A point-estimation equivalent of this two-stage process can be phrased as
+In Algorithm \ref{alg:filtration}, fix a specific hypothesis of index \(i\), and omit the index for convenience. Let $\psi:\Theta \mapsto \real$ be a function of the parameters, e.g., $\psi(\gamma,\beta)= \gamma\beta$. Consider a base test statistic \(\basestat\) which is an estimator for \(\psi\left(\theta \right) \), and a filtration test statistic \(\filtstat\) with rejection region \(\filtrr\), which, depending on filtering or un-filtering event, indicates the distance from the true parameter \(\psi\left(\theta \right) \) to the predefined point \(\psi\left(\theta_0 \right) \) (in the mediation hypothesis, \(\theta_0 = \left(0,0 \right) \)). A point-estimation equivalent of this two-stage process can be phrased as
 \begin{equation} \label{eq:filtestimator}
 	\shrinkestim = \left(T - \psi\left(\theta_0\right)\right) \indc{\nfilevent} + \psi\left( \theta_0\right) \fullstop
 \end{equation}
@@ -790,11 +793,17 @@ One of the versions of Hodges' estimator is defined as follows. Consider a locat
 \end{equation}
 It can be shown \citep{van_der_vaart_asymptotic_1998} that while at every parameter point \(\mu \neq 0\) the estimator \(\widetilde{\mu}\) behaves asymptotically similar to the regular \(\avg{X}\) with root-\(n\) rate of convergence, when \(\mu = 0\), \(\widetilde{\mu}\) converges to \(\mu = 0\) with an ``arbitrarily fast" rate. The \emph{case} \(\mu = 0\) is now distinguished from all the others.
 
-The idea behind the shrinkage estimators we discussed and showed in \eqref{eq:filtestimator} is inspired from the idea behind Hodges' estimator, and shrinkage estimators generally. In both situations, a regular estimator is manipulated in order to use inference about the current case of the parameter, and by that improve estimation. 
-Unfortunately, the superiority of Hodges' estimator at $\mu=0$ comes with shortcomings at parameter points in its neighborhood. For the sake of formulating this idea, we shall use the local asymptotic framework of statistical experiments and their limits.
+The idea behind the shrinkage estimators we discussed is inspired by the idea behind Hodges' estimator, and shrinkage estimators in general. In both situations, a regular estimator is manipulated in order to use inference about the current case of the parameter, and by that improve estimation. 
+Unfortunately, the superiority of Hodges' estimator at $\mu=0$ comes with shortcomings at parameter points in its neighborhood. For the sake of formulating this idea, we shall use the local asymptotic framework of statistical experiments and their limits \citep{van_der_vaart_asymptotic_1998}.
 
 %Indeed, by the CLT, the first factor converges weakly to a standard normal random variable, while the second factor is an indicator of a set that has probability that converges to $0$, so the expression converges to $0$.
 
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{theoretical-plot.pdf}
+	\caption[Statistics for base and filtration tests]{Examples for possible functions for base and filtration statistics.}
+	\label{fig:basefiltrr}
+\end{figure}
 
 \subsection{Shrinkage Estimators for Testing Mediation} \label{sec:rates-teststats}
 \label{sec:filt-teststats}
@@ -802,23 +811,27 @@ Unfortunately, the superiority of Hodges' estimator at $\mu=0$ comes with shortc
 Consider the multiple mediation problem, with a collection of hypotheses \begin{equation}\label{eq:medhypmulti}
 \hypothesis[\hypname{0}[i]]{\regcoef{1}[i] \regcoef{2}[i] = 0}[\hypname{1}[i]]{\regcoef{1}[i] \regcoef{2}[i] \neq 0} \text{,\quad for}\ i =  1,\dots,m \fullstop
 \end{equation}
-For each of the hypotheses, the null space contains parameter points with at least one coordinate equals to \(0\), and similarly composed to three sub-spaces as in \eqref{eq:threecases}. In our setting, the aim of the filtration step is to identify null hypotheses of Case~\nullcase{00}, based on the different properties that these null hypotheses have. The filtration test thus, has a simple null hypothesis form \[\hypothesis[\filhyp{0}[i]]{\theta^i = \theta_0}[\filhyp{1}[i]]{\theta^i \neq \theta_0}\comma\] where \(\medparam[i] = \medparamfull[i]\) and \(\medparamzero = \left(0,0 \right) \).
+For each of the hypotheses, the null space contains parameter points with at least one coordinate equals to \(0\), see~\eqref{eq:threecases}. In our setting, the aim of the filtration step is to identify null hypotheses of Case~\nullcase{00} based on the different properties that these null hypotheses have. The filtration test thus, has a simple null hypothesis form \[\hypothesis[\filhyp{0}[i]]{\theta^i = \theta_0}[\filhyp{1}[i]]{\theta^i \neq \theta_0}\comma\] where \(\medparam[i] = \medparamfull[i]\) and \(\medparamzero = \left(0,0 \right) \).
 
 One approach for finding test statistic is using the likelihood-ratio test,
 \begin{equation} \label{eq:lrt}
 	\Lambda = \frac{\sup_{\theta \in \Theta_{00}}{\likelihood{\theta}{X}}}{\sup_{\theta \in \Theta}{\likelihood{\theta}{X}}} \fullstop
 \end{equation}
-Direct calculation shows that the likelihood-ratio test statistic is \(\left\|\left(  \estim{1}, \estim{2} \right) \right\|^2 \), so it can be considered as a natural test statistic \(T_\filter\) for the filtration test.
+Direct calculation shows that the likelihood-ratio test statistic is \(\left\|\left(  \estim{1}, \estim{2} \right) \right\|^2 \), so it can be considered as a natural test statistic \(\filtstat\) for the filtration test.
 
-The likelihood-ratio approach can be applied also to the base test statistic \(T\). Here, the separation is between the null \(\Theta_0 = \left( \left\lbrace 0 \right\rbrace \times \real \right) \cup \left( \real \times \left\lbrace 0 \right\rbrace \right) \) and \(\Theta = \real^2\).  Given the estimator \(\estim{1}\) and \(\estim{2}\), the numerator always equals to a constant, i.e.\ the value the likelihood function returns for \(\theta = \left( \estim{1}, \estim{2} \right) \). The denominator is the likelihood function's value when \(\theta = \left(\estim{1}, 0 \right)\) if \(\estim{1} \le \estim{2}\) and \( \theta = \left(0, \estim{2} \right)\) otherwise. Therefore, the test statistic is \(\minestim\), which is equivalent to \(\maxregpval\). This supplies a justification for choosing this statistic for the base test hypothesis.
 
-Phrasing the abstract separation idea can be as follows. We would like to find a function \(\phi\) which maximizes \(P_{\theta }\left( \phi\left( \estim{1}, \estim{2} \right) > t \right)\) under an arbitrary parameter \(\theta \), which is not in Case~\nullcase{00}, while maintaining the same probability \(P_{\theta }\left( \phi\left( \estim{1}, \estim{2} \right) > t \right) \leq \alpha\) for \(\theta \) in Case~\nullcase{00}. Not always there is a perfect test which has the uniformly best power among those with the same level. 
+
+Other filtration tests can be considered. In general, we would like to find a function \(\phi\) which maximizes \(P_{\theta }\left( \phi\left( \estim{1}, \estim{2} \right) > t \right)\) under an arbitrary parameter \(\theta \), which is not in Case~\nullcase{00}, while maintaining the same probability \(P_{\theta }\left( \phi\left( \estim{1}, \estim{2} \right) > t \right) \leq \alpha\) for \(\theta \) in Case~\nullcase{00}. Not always there is a perfect test that has the uniformly best power among those with the same level. 
 
 Let us restrict ourselves only to filtration tests \(\nfilevent\) of the form \(\phi\left(\estim{1},\estim{2} \right) \leq t \). Thus, we should consider and compare various functions \(\phi\), when the purpose of each of them is to \emph{separate} or \emph{distinguish} between the point \(\left(0,0 \right) \) and other points in \(\Theta\).
-Later on we will study the function \(\phi:\left(x, y \right) \mapsto xy\) in depth. We will also discuss other functions, such as \(\left(x,y\right) \mapsto \left\|\left(x,y\right)\right\|\), \(\left(x,y\right) \mapsto \left\|\left(x,y\right)\right\|^2\), \(\left(x,y\right) \mapsto  \max{\left\lbrace \left| x\right| ,\left| y\right| \right\rbrace }\), \(\left(x,y\right) \mapsto \left|x\right|  + \left|y\right|\), and in general \(\left(x, y \right) \mapsto \left\|\left(x,y \right)  \right\|_p  \), for the \lpspace-norm \(\left\|\cdot \right\|_p \), \(p \in \left[1,\infty\right] \). %Comparison of these functions, theoretically and through simulations, will be given later.
-The induced shrinkage estimators for the product estimator would have the form \(\product \indc{\product \in R_\filter}\), and the shrinkage estimator for the screen-min procedure \citep{djordjilovic_optimal_2020}, which filters according to the minimal \pvalue{}, will be \(\minestim \indc {\maxestim \in \filtrr}\). Shrinkage estimators for other statistics can be constructed similarly.
+Later on, we will study the function \(\phi:\left(x, y \right) \mapsto xy\) in depth. We will also discuss other functions, such as \(\left(x,y\right) \mapsto \left\|\left(x,y\right)\right\|\), \(\left(x,y\right) \mapsto \left\|\left(x,y\right)\right\|^2\), \(\left(x,y\right) \mapsto  \max{\left\lbrace \left| x\right| ,\left| y\right| \right\rbrace }\), \(\left(x,y\right) \mapsto \left|x\right|  + \left|y\right|\), and in general \(\left(x, y \right) \mapsto \left\|\left(x,y \right)  \right\|_p  \), for the \lpspace-norm \(\left\|\cdot \right\|_p \), \(p \in \left[1,\infty\right] \). An illustration of the rejection region of such filtration tests can be found in Figure~\ref{fig:basefiltrr}.%Comparison of these functions, theoretically and through simulations, will be given later.
 
-In order to draw useful insights about these estimators as well as others, we need to study and compare their local asymptotic behavior in neighborhoods of parameter points.
+
+
+We now move to consider base tests which separates the null \(\Theta_0 = \left( \left\lbrace 0 \right\rbrace \times \real \right) \cup \left( \real \times \left\lbrace 0 \right\rbrace \right) \) and \(\Theta = \real^2\) can also be performed using the likelihood-ratio approach \citep{djordjilovic_optimal_2020}. Here, given the estimator \(\estim{1}\) and \(\estim{2}\), the numerator always equals to a constant, i.e.,\ the value the likelihood function returns for \(\theta = \left( \estim{1}, \estim{2} \right) \). The denominator is the likelihood function's value when \(\theta = \left(\estim{1}, 0 \right)\) if \(\estim{1} \le \estim{2}\) and \( \theta = \left(0, \estim{2} \right)\) otherwise. Therefore, the test statistic is \(\minestim\), which is equivalent to \(\maxregpval\). This supplies a justification for choosing this statistic for the base test hypothesis. Other statistics for the base test can be considered such as Sobel's test \citep{sobel_asymptotic_1982}, see~\eqref{eq:sobel} below. An illustration of these tests can be found in Figure~\ref{fig:basefiltrr}. 
+
+Any combination of a filtration test and a base test induces a shrinkage estimator as formulated in~\eqref{eq:filtestimator}. For example,  the induced shrinkage estimator for the screen-min procedure \citep{djordjilovic_optimal_2020}, which filters according to the minimal \pvalue{}, and uses the likelihood ratio test as a base test is \(\minestim \indc {\maxestim \in \filtrr}\). Other shrinkage estimators can be constructed similarly.
+In order to draw useful insights about these estimators we need to study and compare their local asymptotic behavior in neighborhoods of parameter points.
 
 %=================================================
 %   _____           _   _               _  _   
@@ -835,7 +848,7 @@ In order to draw useful insights about these estimators as well as others, we ne
 Let \(\regcoef{1} = \regcoef{1}[A]\) and \(\regcoef{2} = \regcoef{2}[M]\) be the coefficients from the regression equation \eqref{eq:medregmodel}, and let \(\estim{1}\) and \(\estim{2}\) their respective estimators. %Our goal is to test the null hypothesis $\regcoef{1} \regcoef{2} = 0$. This null hypothesis corresponds to the non-existence of a mediator, and can be divided into the three cases in \eqref{eq:threecases}.
 %As mentioned before, since the quantity we are interested in, as derived from the regression equations of the mediation hypothesis is \(\regcoef{1} \regcoef{2}\), a natural test statistic for the problem would be \(\product\).
 Under standard regularity conditions, \(\sqrt{n}\left( \mle{\regcoef{1}} - \regcoef{1}\right) \to \nordist[0][\sigma^2_{\regcoef{1}}] \) and \(\sqrt{n}\left( \mle{\regcoef{2}} - \regcoef{2}\right) \to \nordist[0][\sigma^2_{\regcoef{2}}] \). In this section we will analyze the estimators \(\estim{1}\) and \(\estim{2}\) based on their normal approximations \citep[see also discussion in][]{huang_genome-wide_2019}.
-As we show below, the estimator \(\product\), similarly to the original estimator \(\mle{\gamma} \mle{\beta}\), behaves differently in the parameter point \(\left(0,0 \right) \) compared to the other parameter points in the null.
+As we show below, the estimator \(\product\), behaves differently in the parameter point \(\left(0,0 \right) \) compared to the other parameter points in the null.
 
 
 %\subsection{About Shrinkage Estimators and Others}
@@ -859,12 +872,12 @@ Another way of showing that is using the delta method. \citet{sobel_asymptotic_1
 \end{equation}
 Note that for parameter points in Cases \nullcase{01} and \nullcase{10}, the convergence rate is root-\(n\). As already proved in exact terms in \eqref{eq:productdecomp}, Case~\nullcase{00} yields a higher rate.
 
-	The delta method argument can be generalized to show that the estimator \(\product\) is not the only example for estimator with higher rate of convergence in \(\left(0,0 \right) \).
+	The delta method argument can be generalized to show that the estimator \(\product\) is not the only example of an estimator with a higher rate of convergence in \(\left(0,0 \right) \).
 
 Consider the shrinkage estimator in \eqref{eq:filtestimator} where the filtration test statistic \(\filtstat\) has the form \(\phi\left( \estim{1}, \estim{2} \right) \). Interestingly, under some conditions on \(\phi\), the convergence rate of \(\phi\left( \estim{1}, \estim{2} \right) \) might depend on the parameter point.
 
 \begin{lemma} \label{lem:higherrate}
-	Let \(\phi:\real^p\rightarrow\real\) be a function which is differentiable and attains its minimum at \(\theta_0\). Let \(T_n = \left( T_{n1},\dots,T_{np} \right) \) be a consistent estimator for \(\theta\) with convergence rate \(r_n\). Then, the convergence rate of \(\phi\left( T_n \right)\) at \(\theta_0\) that is faster than \(r_n\).
+	Let \(\phi:\real^p\rightarrow\real\) be a function which is differentiable and attains its minimum at \(\theta_0\). Let \(T_n = \left( T_{n1},\dots,T_{np} \right) \) be a consistent estimator for \(\theta\) with convergence rate \(r_n\). Then, the convergence rate of \(\phi\left( T_n \right)\) at \(\theta_0\)  is faster than \(r_n\).
 \end{lemma}
 
 \begin{proof}
@@ -875,7 +888,7 @@ Consider the shrinkage estimator in \eqref{eq:filtestimator} where the filtratio
  Consider for instance the separation function \(\phi\left(x,y \right) = x^2 + y^2 \). This function can be used for creating a test statistic for the filtration test. Using Lemma~\ref{lem:higherrate}, it can shown that \( \estim{1}^2 + \estim{2}^2\) is another example for an estimator with higher rate of convergence at \(\left(0,0 \right) \).
 
 
-	
+
 
 	
 \subsection{Irregularity of Estimators} \label{sec:rates-irreg}
@@ -962,8 +975,8 @@ Filtration estimators, in general, have properties similar to the Hodges' estima
 
 
 	The common measure for comparing efficiency of two estimators \(T_1\) and \(T_2\) of a parameter \(\psi\left(\theta \right) \) in a parameter point \(\theta\) is the \emph{asymptotic relative efficiency (ARE)}. The ARE is equivalent to the limit ratio of the corresponding variances,
-	\[\operatorname{ARE}\left(T_1, T_2 ; \theta \right) = \lim \frac{\sigma_2^2\left(\theta\right)}{\sigma_1^2\left(\theta\right)} \fullstop\]
-	The interpretation for the ARE is the rate it takes to \(T_2\) to estimate \(\psi\left(\theta \right) \) with variance~\(1\), relative to \(T_1\). Thus, ARE less than~\(1\) indicates that \(T_2\) is more efficient than \(T_1\), and vice versa.
+	\[\operatorname{ARE}\left(T_1, T_2 ; \theta \right) = \lim \frac{\sigma_{T_2}^2\left(\theta\right)}{\sigma_{T_1}^2\left(\theta\right)} \comma\]
+	where \(\sigma_{T_1}\) and \(\sigma_{T_2}\) are the variances of \(T_1\) and \(T_2\) correspondingly. The interpretation for the ARE is the rate it takes to \(T_2\) to estimate \(\psi\left(\theta \right) \) relative to \(T_1\). Thus, ARE less than~\(1\) indicates that \(T_2\) is more efficient than \(T_1\), and vice versa.
 	
 	The ARE, as formulated explicitly above, takes into account only the variance of the estimators, and not the asymptotic bias rate of convergence. In Hodges-like filtration estimators, the asymptotic bias is usually the cost for the super-efficiency in some points. In order to consider both these quantities, the asymptotic variance and the asymptotic bias, into the comparison, we shall compare their mean squared error (MSE). Indeed, the MSE weighs the variance and the square of the bias with equal weights: \(\MSE\left(T,\theta \right) = \mean{\left(T-\theta \right)^2 } = \var{T} + \mean{T-\theta}^2 \). Generalizing the definition of ARE, we treat MSE-ratio less than \(1\) as indicating that \(T_2\) is more efficient than \(T_1\) and vice versa.
 	
@@ -998,7 +1011,7 @@ Filtration estimators, in general, have properties similar to the Hodges' estima
 	
 	
 	\begin{theorem} \label{thm:effclass}
-		Let \(\theta_n\) be any sequence of parameter points that converges to \(\theta_0\). Let \(\basestat[][n]\) be the regular estimator of the corresponding parameter \(\psi\left(\theta_n\right)\), and \(\shrinkestim[][n] = \shrinkestimdef[][n] \) be the filtration estimator based on it.
+		Let \(\theta_n\) be any sequence of parameter points that converges to~\(\theta_0\). Let \(\basestat[][n]\) be the regular estimator of the corresponding parameter \(\psi\left(\theta_n\right)\), and \(\shrinkestim[][n] = \shrinkestimdef[][n] \) be the filtration estimator based on it.
 		Let \(L = \lim P_{\theta_n} \left( \filevent[][n] \right) \) and \(K = \lim \frac{1}{\sigma_{T_n}} \left( \psi\left(\theta_n\right) - \psi\left(\theta_0\right) \right)\). %(or, equivalently, \(\lim P\left( T_n \in R_n\right) \)).
 		\begin{enumerate}[label = \roman*.]
 			\item When \(L = 1\), then \(\shrinkestim[][n]\) is much more efficient than \(\estimreg\) when \(K = 0\); more efficient when \(0 < K < 1\); equivalent when \(K = 1\); less efficient when \(1<K<\infty\); and much less efficient when \(K = \infty\).
@@ -1029,7 +1042,8 @@ Note that the existence of the cases discussed above is affected by the chosen t
 
 \subsection{Case Study: The Product Statistic} \label{sec:la-casestudy}
 
-Recall that \(\estim{1}\) and \(\estim{2}\) are the estimators for the regression coefficients \(\regcoef{1}\) and \(\regcoef{2}\) in the regression Model \eqref{eq:medregmodel}, respectively. In this section we use Theorem~\ref{thm:effclass} to study the properties of the shrinkage estimator \(\estimfil = \product \indc{n^\delta \left| \product \right| > c}\) based on the base and filter test statistic \(\product = \psi\left(\estim{1},\estim{2} \right) \), for \(\psi\left(x, y \right) = xy \). Its aim, as detailed in Section \ref{sec:filt}, is to filter hypotheses which are likely to belong to the null parameter point \(\left(0,0 \right) \). %The shrinkage estimator will be considered as a case study for the theorem. We define, for \(\estimreg = \product\), the estimator ,
+Recall that \(\estim{1}\) and \(\estim{2}\) are the estimators for the regression coefficients \(\regcoef{1}\) and \(\regcoef{2}\) in the regression Model \eqref{eq:medregmodel}, respectively. In this section we use Theorem~\ref{thm:effclass} to study the properties of the shrinkage estimator \(\estimfil = \product \indc{ \left| \product \right| > cn^{-\delta}}\). Note that in this case both the filtration and base test statistics are  \( \psi\left(\estim{1},\estim{2} \right)= \product \), and the rejection region for the filtration statistic is $cn^{-\delta}$. The variance of this estimator is approximately \(\sqrt{n^{-1}\left( n^{-1} + \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) }\), we will use this quantity in the next calculations.
+%for \(\psi\left(x, y \right) = xy \). Its aim, as detailed in Section \ref{sec:filt}, is to filter hypotheses which are likely to belong to the null parameter point \(\left(0,0 \right) \). %The shrinkage estimator will be considered as a case study for the theorem. We define, for \(\estimreg = \product\), the estimator ,
 %Written below are results for an example case, of base estimator \(T = \avg{X}\avg{Y}\) and filtration set \(A = \left\lbrace \avg{X}\avg{Y} > c n^{-\gamma} \right\rbrace \). These results are shown here for the sake of demonstrating and characterizing the filtration process in a case study.
 
 %``We consider parameters \(\theta + h/\sqrt{n}\) for \(\theta\) fixed and \(h\) ranging over \(\real^k\) and suppose that, for certain limit distributions \(L_{\theta,h}\), \[\sqrt{n} \left( T - \psi \left( \theta + \frac{h}{\sqrt{n}} \right) \right) = L_{\theta,h} \] 
@@ -1039,18 +1053,19 @@ Recall that \(\estim{1}\) and \(\estim{2}\) are the estimators for the regressio
 
 %{\color{blue}\makeatletter\let\default@color\current@color\makeatother
 
-We now consider sequences of parameters \(\theta_n = \regcoef{1}[][n]\regcoef{2}[][n]\) approaching the constant true parameter \(\theta_0 = \regcoef{1}[][0]\regcoef{2}[][0]\). The rate of convergence, \(K = \lim \frac{1}{\sigma_{T_n}} \left( \psi\left(\theta_n\right) - \psi\left(\theta_0\right) \right)\), is in this case \[K = \lim \frac{\regcoef{1}[][n]\regcoef{2}[][n]}{\sqrt{n^{-1}\left(n^{-1}+\regcoef{1}[][n]^2 + \regcoef{2}[][n]^2 \right) }} \comma\]
+We now consider sequences of parameters \(\theta_n = \regcoef{1}[][n]\regcoef{2}[][n]\) approaching the constant true parameter \(\theta_0 = \regcoef{1}[][0]\regcoef{2}[][0]\). The rate of convergence can be shown to be (see below) \[K = \lim \frac{1}{\sigma_{T_n}} \left( \psi\left(\theta_n\right) - \psi\left(\theta_0\right) \right) = \lim \frac{\regcoef{1}[][n]\regcoef{2}[][n]}{\sqrt{n^{-1}\left(n^{-1}+\regcoef{1}[][n]^2 + \regcoef{2}[][n]^2 \right) }} = \lim \frac{n\regcoef{1}[][n]\regcoef{2}[][n]}{\sqrt{1+n\left(\regcoef{1}[][n]^2 + \regcoef{2}[][n]^2 \right) }}\fullstop\]
 
 The value of \(K\) can be partially characterized as a function of \(\regcoef{1}[][n]\) and \(\regcoef{2}[][n]\). Without loss of generality, we assume that both \(\regcoef{1}[][n]\) and \(\regcoef{2}[][n]\) are non-negative. Since \(2\regcoef{1}[][n]\regcoef{2}[][n] \leq \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\), we have
 \begin{equation} \label{eq:distancebound}
-	K \leq \lim \frac{\regcoef{1}[][n]^2 + \regcoef{2}[][n]^2}{2 \sqrt{n^{-1}\left(n^{-1}+\regcoef{1}[][n]^2 + \regcoef{2}[][n]^2 \right) }} = \lim \frac{n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) }{2 \sqrt{1 + n \left(\regcoef{1}[][n]^2 + \regcoef{2}[][n]^2 \right) }}\fullstop
+	K \leq \lim \frac{n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) }{2 \sqrt{1 + n \left(\regcoef{1}[][n]^2 + \regcoef{2}[][n]^2 \right) }}\fullstop
 \end{equation}
-When \(n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) \to 0\), then \(K = 0\). When \(n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) \to c\) then \(K \leq \frac{c}{\sqrt{1+c}}\), so for \(c\) smaller than the golden ratio \(\phi = \frac{1+\sqrt{5}}{2}\), then, by \eqref{eq:distancebound}, we have \(K < 1\). Similarly, it can be bounded below: When \(n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) \to \infty\), then \(K \geq \infty\), and when \(n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) \to c\) then \(K \geq \frac{c}{\sqrt{1+c}}\).
+When \(n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) \to 0\), then \(K = 0\). When \(n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) \to c\) then \(K \leq \frac{c}{\sqrt{1+c}}\), so for \(c\) smaller than the golden ratio \(\frac{1+\sqrt{5}}{2}\), then, by \eqref{eq:distancebound}, we have \(K < 1\).
+%Similarly, it can be bounded below: When \(n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) \to \infty\), then \(K = \infty\), and when \(n\left( \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right) \to c\) then \(K \geq \frac{c}{\sqrt{1+c}}\).
 
 The limit probability \(L = \lim P_{\theta_n} \left( \filevent \right)\) can be characterized into regions according to Table~\ref{tbl:prodclassprob}, where
 \(A = \max \left\lbrace
 \lim n^{\delta}\regcoef{1}[][n]\regcoef{2}[][n],
-\lim n^{\delta - 1/2} \sqrt{n^{-1} + \regcoef{1}[][n]^2 + \regcoef{2}[][n]^2}
+\lim n^{\delta - 1} \sqrt{1 + n\left(\regcoef{1}[][n]^2 + \regcoef{2}[][n]^2\right)}
 \right\rbrace \):
 \begin{table}[h]
 	\centering
@@ -1131,33 +1146,35 @@ As a result, these different spaces shed light on the difficulty in estimation a
 
 
 \subsection{Controlling the FWER}
-Even though we've been focusing on the asymptotic behavior of filtration tests, the common framework for mediation testing is of a finite sample, as can be found, for instance, in \citet{boca_testing_2014} and \citet{djordjilovic_optimal_2020}. In this framework, the required terms and measures are different, and we wish to phrase general results about them as well.
-
-In the following we provide an upper bound on the FWER for the two-stage procedure presented in Section~\ref{sec:filt-alg}.  %We would like to state a result concerning the general case of two-stage procedures under the local-asymptotics framework.
-For set of \(m\) hypotheses, we denote by \(f \in \left\lbrace 0, 1 \right\rbrace^m \) the vector whose \(i\)-th coordinate is \(\indc{\nfilevent}\). Let \(F = \sum_{i=1}^{m} f_i\).
 
 
 
 
+Even though we have been focusing on the asymptotic behavior of filtration tests, the common framework for mediation testing is of a finite sample, as can be found, for instance, in \citet{boca_testing_2014} and \citet{djordjilovic_optimal_2020}. Although the results stated in the local asymptotic framework are about behavior in the limit, the practical implications let us examine the effectiveness of a given test, whose purpose is to separate between different parameter sets (null and alternative). Having that in mind, we wish to provide general results about the finite sample framework as well, which require different terms and measures.
 
+Recall that many of the existing methods can be presented as two-stage procedures (see Section~\ref{sec:filt-alg}).  %We would like to state a result concerning the general case of two-stage procedures under the local-asymptotics framework.
+For set of \(m\) hypotheses, we denote by \(f \in \left\lbrace 0, 1 \right\rbrace^m \) the vector whose \(i\)-th coordinate is \(\indc{\nfilevent}\). Let \(F = \sum_{i=1}^{m} f_i\). We consider two-stage procedures with an adaptive adjusting method, i.e., after the filtration step, and after computing the number of unfiltered hypotheses \(F\), then under the null \(P_{\theta}\left(\cond{\baserejeventadj}{F} \right) = \frac{P_{\theta_0}\left( \nfilevent \right)}{F} \alpha \). For the special case that \(T\) is a p-value, it can be achieved for example by multiplying the rejection threshold by \(\frac{P_{\theta_0}\left( \nfilevent \right)}{F}\) (similarly to Bonferroni).
 
+In the following, we provide an upper bound on the FWER for a general two-stage procedure. We need the following assumption.
+\begin{assumption}\label{as:independence}
+    The base test and filtration test statistics of every hypothesis are independent of the base test and filtration test statistics of all other hypotheses. In other words \(\left(T^i, S^i\right)\) and \(\left(T^j, S^j\right)\) are independent for every \(i \neq j\).
+\end{assumption}
 
 
 \begin{theorem} \label{thm:fwercontrol}
-	Assume that the base test and filtration test statistics of every hypothesis are independent of the base test and filtration test statistics of all other hypotheses (\(\left(T^i, S^i\right)\) and \(\left(T^j, S^j\right)\) are independent for every \(i \neq j\)). 
-	Assume that \(\theta_0 = \arg\min_{\theta}{P_\theta\left(\nfilevent \right) }\) (the parameter point with the lowest filtration probability is \(\theta_0\)). Assume also we use an adaptive adjusting method (after filtration step, and after computing \(F\), number of unfiltered hypotheses), such that under the null \(P_{\theta}\left(\cond{\baserejeventadj}{F} \right) = \frac{P_{\theta_0}\left( \nfilevent \right)}{F} \alpha \). For the special case that \(T\) is a p-value, it can be achieved for example by multiplying the rejection threshold by \(\frac{P_{\theta_0}\left( \nfilevent \right)}{F}\) (similarly to Bonferroni). Let \(V\) be the number of true null rejected. Then
+Let Assumption~\ref{as:independence} hold and assume that \(\arg\min_{\theta}{P_\theta\left(\nfilevent \right) }\) is obtained at \(\theta_0\), i.e., \(\theta_0\) is the parameter point with the lowest filtration probability.  Let \(V\) be the number of true null rejections. Then
 	\(P\left(V \geq 1 \right) \leq \alpha \).
 \end{theorem}
 
-The following result generalizes the FWER bound given by Proposition~1 of \citet{djordjilovic_optimal_2020} for the two-stage screen-min procedure, in which \citet{djordjilovic_optimal_2020} assumed discrete separation of the null into cases (Denoted here as Cases \nullcase{00}, \nullcase{01} and \nullcase{10}).
+The following result generalizes the FWER bound given by Proposition~1 of \citet{djordjilovic_optimal_2020} for the two-stage screen-min procedure, in which \citet{djordjilovic_optimal_2020} assumed discrete separation of the null into cases which are denoted here as Cases \nullcase{00}, \nullcase{01} and \nullcase{10}.
 
 \begin{theorem} \label{thm:fwerbound}
-	Assume that the base test and filtration test statistics of every hypothesis are independent of the base test and filtration test statistics of all other hypotheses (\(\left(T^i, S^i\right)\) and \(\left(T^j, S^j\right)\) are independent for every \(i \neq j\)). 
-	Assume we use an adaptive adjusting method (after filtration step, and after computing \(F\), number of unfiltered hypotheses), such that under the null \(P_{\theta}\left(\baserejeventadj \right) = \alpha/F \). For the special case that \(T\) is a p-value, it can be achieved for example by multiplying the rejection threshold by \(1/F\) (similarly to Bonferroni). Let \(V\) be the number of true null rejected. Then
+Let Assumption~\ref{as:independence} hold. Then
 	\[P\left(V \geq 1 \right) \leq \mean{\left(1 - \left( 1 - \max_{\theta\in\Theta }P_\theta \left(\cond{T^i \in R^i}{S^i \in Q^i}\right) \right)^{F}  \right)\indc{F>0} } \fullstop \]
 \end{theorem}
 
-
+Remark: It follows from the proof that it is enough to require that the method is adaptive in the sense that
+ hat under the null \(P_{\theta}\left(\cond{\baserejeventadj}{F} \right) = \alpha/F \).
 
 As stated, hypotheses with filtration probability \(0\) are not altered by the filtration stage, thus remain with the same (wanted) behavior of the original, base test. Other hypotheses may be filtered, depending on the filtration stage.
 
@@ -1220,7 +1237,7 @@ The advantage of the first theorem is that it is possible, at least numerically,
 \end{figure}
 
 In some settings, one can explicitly show that the two-stage procedure controls the FWER.
-Assume that we use an adaptive adjusting method (after filtration step, and after computing \(F\), number of unfiltered hypotheses), such that under the null \(P_{\theta}\left(\baserejeventadj \right) = \alpha/F \). For the special case that \(T\) is a p-value, it can be achieved for example by multiplying the rejection threshold by \(1/F\) (similarly to Bonferroni).
+%Assume that we use an adaptive adjusting method (after filtration step, and after computing \(F\), number of unfiltered hypotheses), such that under the null \(P_{\theta}\left(\baserejeventadj \right) = \alpha/F \). For the special case that \(T\) is a p-value, it can be achieved for example by multiplying the rejection threshold by \(1/F\) (similarly to Bonferroni).
 The following example, inspired by \citet{huang_genome-wide_2019}, is such an example.  
 \begin{example}
     Assume that statistics follow the normal distribution with \(\estim{1} \sim \nordist[\regcoef{1}[][n]][n^{-1/2} \sigma]\) and \(\estim{2} \sim \nordist[\regcoef{2}[][n]][n^{-1/2} \sigma]\), for some constant \(\sigma\), and the means are distributed as follows:
@@ -1252,7 +1269,7 @@ The following example, inspired by \citet{huang_genome-wide_2019}, is such an ex
 % =============================================
 
 \section{Applications to Multiple Comparison} \label{appmc}
-
+\subsection{Simulation Study}
 
 Consider the multiple tests framework discussed in Sections \ref{sec:filt-alg} and \ref{sec:la-multmedhyp}. In this section we aim to compare the proposed two-stage procedure through simulations. We present three settings. The first is similar to the setting of \citet{djordjilovic_optimal_2020}. We simulate the estimators \(\estim{1}\) and \(\estim{2}\) for the regression coefficients in Section \ref{sec:rates-framework}, from normal distribution with means \(\regcoef{1}[][n]\) and \(\regcoef{2}[][n]\) and standard deviations \(\frac{1}{\sqrt{n}} \sigma\).
 The true means \(\regcoef{1}[][n]\) and \(\regcoef{2}[][n]\) are distributed as detailed in the configurations columns in Table \ref{tbl:param}.
@@ -1330,12 +1347,16 @@ In all configurations, the only change is the filtration \pvalue{}, and the base
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{pvals/pvals-all.pdf}
+	\includegraphics[width=\textwidth]{pvals/pvals-all-new.pdf}
 	\caption[Empirical FWER and power]{Empirical FWER and Power of the two-stage procedure, with various filtration tests, for the multiple mediation hypotheses framework. Simulated under three different settings, as detailed in Section \ref{appmc}.}
 	\label{fig:simulatedfwerpower}
 \end{figure}
 
-In all methods the simulated FWER was approximately under 0.05. In both configurations, there was a significant improvement of the filration procedures compared to the procedure without filtering at all. In Configuration 2, there is an improvement of the product methods with limit probability 1 (i.e., \(\delta = 0.8 \andtext 0.9\)) above the rest of the filtration procedures, that are all have similar results in terms of power.
+In all methods the simulated FWER was approximately under 0.05. In both configurations, there was a significant improvement of the filtration procedures compared to the procedure without filtering at all. In Configuration 2, there is an improvement of the product methods with limit probability 1 (i.e., \(\delta = 0.8 \andtext 0.9\)) above the rest of the filtration procedures, that are all have similar results in terms of power.
+
+\subsection{Case Study}
+We have performed the same two-stage procedures to the Navy Adenoma study \
+
 
 
 \section{Concluding Remarks}
@@ -1444,9 +1465,9 @@ In this work, we considered the mediation problem arises often and in large numb
 		\frac{\mean{\left(  \estimfil - \theta_n \right)^2 } }{\var{\estimreg}} =
 		\mean{\frac{1}{\sigma_{\estimreg}^2} \left( \estimreg - \theta_n \right)^2 \indc{\nfilevent[][n]} }+\mean{\frac{1}{\sigma_{\estimreg}^2} \left( \theta_0 - \theta_n \right)^2 \indc{\filevent[][n]} }
 	\end{equation}
-	The first summand converges to \(0\) since the sequence \(\frac{1}{\sigma_{\estimreg}^2}\left(\estimreg - \psi\left(\theta_n\right) \right)^2\) is uniformly integrable by Assumption~\ref{assum:asymunbiased}. The second summand converges to \(K\) by assumption. Thus,
+	The first summand converges to \(0\) since the sequence \(\frac{1}{\sigma_{\estimreg}^2}\left(\estimreg - \psi\left(\theta_n\right) \right)^2\) is uniformly integrable by Assumption~\ref{assum:asymunbiased}. The second summand converges to \(K^2\) by assumption. Thus,
 	\begin{align}
-		\frac{\MSE\left(\estimfil; \theta\right) }{\MSE\left(\estimreg; \theta\right)} \to \left( 0 + K\right) ^2 \cdot \left(1-o\left(1 \right)  \right) = K^2
+		\frac{\MSE\left(\estimfil; \theta\right) }{\MSE\left(\estimreg; \theta\right)} = \left( 0 + K^2\right)  \cdot \left(1-o\left(1 \right)  \right) \to K^2
 	\end{align}
 	Consequently, every one of the relative efficiency possibilities may occur, depending directly on the value of \(K\).
 	
